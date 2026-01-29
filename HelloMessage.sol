@@ -162,17 +162,20 @@ pragma solidity ^0.8.20;
 
 contract HelloMessage {
   string public message; // aktualna wiadomość
+  uint256 public messageCount; // liczba wszystkich wysłanych wiadomości
 
   event MessageUpdated(address indexed sender, string newMessage, uint256 timestamp);
 
   constructor(string memory initialMessage) {
     message = initialMessage;
+    messageCount = 0;
   }
 
   // Funkcja do zmiany wiadomości
   function updateMessage(string memory newMessage) public {
     require(bytes(newMessage).length <= 140, "Message too long");
     message = newMessage;
+    messageCount += 1;
     emit MessageUpdated(msg.sender, newMessage, block.timestamp);
   }
 
