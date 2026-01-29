@@ -161,25 +161,25 @@ SOL
 pragma solidity ^0.8.20;
 
 contract HelloMessage {
-    string public message; // aktualna wiadomość
+  string public message; // aktualna wiadomość
 
-    event MessageUpdated(address indexed sender, string newMessage);
+  event MessageUpdated(address indexed sender, string newMessage, uint256 timestamp);
 
-    constructor(string memory initialMessage) {
-        message = initialMessage;
-    }
+  constructor(string memory initialMessage) {
+    message = initialMessage;
+  }
 
-    // Funkcja do zmiany wiadomości
-    function updateMessage(string memory newMessage) public {
-      require(bytes(newMessage).length <= 140, "Message too long");
-      message = newMessage;
-      emit MessageUpdated(msg.sender, newMessage);
-    }
+  // Funkcja do zmiany wiadomości
+  function updateMessage(string memory newMessage) public {
+    require(bytes(newMessage).length <= 140, "Message too long");
+    message = newMessage;
+    emit MessageUpdated(msg.sender, newMessage, block.timestamp);
+  }
 
-    // Funkcja do odczytu wiadomości
-    function readMessage() public view returns (string memory) {
-        return message;
-    }
+  // Funkcja do odczytu wiadomości
+  function readMessage() public view returns (string memory) {
+    return message;
+  }
 }
 
 
