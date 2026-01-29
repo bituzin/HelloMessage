@@ -30,6 +30,14 @@ connectBtn.onclick = async () => {
     signer = provider.getSigner();
     userAddress = await signer.getAddress();
 
+    // Check if on Base mainnet (chainId 8453)
+    const network = await provider.getNetwork();
+    if (network.chainId !== 8453) {
+      log("Please switch to the Base mainnet network in your wallet.");
+      walletDiv.textContent = `Wrong network: ${network.chainId}`;
+      return;
+    }
+
     walletDiv.textContent = `Connected: ${userAddress}`;
     contract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi, signer);
 
