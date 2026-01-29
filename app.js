@@ -59,7 +59,9 @@ sendBtn.onclick = async () => {
     txLinkDiv.innerHTML = `<a href="${explorer}${tx.hash}" target="_blank">Check Your message directly on Base explorer</a>`;
 
     await tx.wait();
-    log("Transaction sent!");
+    // Fetch and display the updated message
+    const updatedMessage = await contract.readMessage();
+    log(`Transaction sent!\nCurrent message: ${updatedMessage}`);
     newMessageInput.value = "";
   } catch(e) {
     log("Error: " + e.message);
