@@ -171,8 +171,9 @@ contract HelloMessage {
 
     // Funkcja do zmiany wiadomości
     function updateMessage(string memory newMessage) public {
-        message = newMessage;
-        emit MessageUpdated(msg.sender, newMessage);
+      require(bytes(newMessage).length <= 140, "Message too long");
+      message = newMessage;
+      emit MessageUpdated(msg.sender, newMessage);
     }
 
     // Funkcja do odczytu wiadomości
